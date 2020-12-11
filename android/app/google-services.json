@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1084760211513",
+    "firebase_url": "https://zwallet-44a92.firebaseio.com",
+    "project_id": "zwallet-44a92",
+    "storage_bucket": "zwallet-44a92.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1084760211513:android:c236ed45d5f6a50fb04de8",
+        "android_client_info": {
+          "package_name": "com.zwallet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1084760211513-utqeuui1mnvpkpso6v10jep3a7jc4dsk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgYV86OzkFlwgAQ_K4jy6Ah1ytYpqqfC8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1084760211513-utqeuui1mnvpkpso6v10jep3a7jc4dsk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

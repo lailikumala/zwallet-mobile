@@ -23,16 +23,25 @@ const ResetPassword = (props) => {
   const dispatch = useDispatch();
 
   const onSubmit = () => {
+
+    if(email && password === newPassword) {
+      dispatch(ResetPass({
+        email: email,
+        password: newPassword
+      }),
+      setEmail(''),
+      setPassword(''),
+      setNewPassword('')
+      ),
+      props.navigation.navigate('Login');
+    } else {
+      ToastAndroid.show(
+        `new password & confirm password no match`,
+        ToastAndroid.SHORT,
+    );
+    }
    
-    dispatch(ResetPass({
-      email: email,
-      password: newPassword
-    }),
-    setEmail(''),
-    setPassword(''),
-    setNewPassword('')
-    ),
-    props.navigation.navigate('Login');
+   
 
 };
   return (

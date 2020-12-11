@@ -247,5 +247,6 @@ const style = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     marginLeft: 25,
+    borderRadius: 5
   },
   });

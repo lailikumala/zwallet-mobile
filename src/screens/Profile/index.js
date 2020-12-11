@@ -22,14 +22,15 @@ import { GetUser, PatchPhoto} from '../../redux/actions/User';
 const Profile = ({navigation}) => {
   
   
-  const [photo, setPhoto] = React.useState(null)
+  // const [photo, setPhoto] = React.useState(null)
+  const [logout, setLogout] = React.useState(null)
   const [isSwitchOn, setIsSwitchOn] = React.useState(false);
   const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
-  const [button, setButton] = React.useState('Save');
-  const [selectUser, setSelectUser] = React.useState({});
+  // const [button, setButton] = React.useState('Save');
+  // const [selectUser, setSelectUser] = React.useState({});
   const dispatch = useDispatch()
-  const sheetRef = React.useRef(null);
-  const down = new Animated.Value(1);
+  // const sheetRef = React.useRef(null);
+  // const down = new Animated.Value(1);
   
   const Auth = useSelector((s)=> s.Auth)
   const { data } = useSelector((s)=> s.User)
@@ -90,79 +91,11 @@ const Profile = ({navigation}) => {
 
   const onLogout = () => {
     dispatch(AuthLogout());
+    setTimeout(() => {
+      navigation.replace('Login');
+      setLogout(false);
+    }, 1000);
   };
-
-  // const renderHeader = () => (
-  //   <View style={style.header}>
-  //     <View style={style.panelHeader}>
-  //       <View style={style.panelHandle} />
-  //     </View>
-  //   </View>
-  // );
-
-  // const takePhotoFromCamera = () => {
-  //   ImagePicker.launchCamera(
-  //     { mediaType: 'photo' },
-  //     (res) => {
-  //       const photo = new FormData();
-  //       photo.append('images', {
-  //         uri: res.uri,
-  //         type: res.type,
-  //         name: res.fileName,
-  //       });
-  //       dispatch(PatchPhoto({
-  //         id: Auth.data.token.id,
-  //         token: Auth.data.token.token,
-  //         photo: photo
-  //       }));
-  //     },
-  //   );
-  // };
-
-  // const choosePhotoFromLibrary = () => {
-  //   ImagePicker.launchImageLibrary(
-  //     { mediaType: 'photo' },
-  //     (res) => {
-  //       const photo = new FormData();
-  //       photo.append('images', {
-  //         uri: res.uri,
-  //         type: res.type,
-  //         name: res.fileName,
-  //       });
-  //       dispatch(PatchPhoto({
-  //         id: Auth.data.token.id,
-  //         token: Auth.data.token.token,
-  //         photo: photo
-  //       }));
-  //     },
-  //   );
-  // };
-
-  // const renderContent = () => (
-  //   <View style={style.panel}>
-  //     <View style={{alignItems: 'center'}}>
-  //       <Text style={style.panelTitle}>Upload Photo</Text>
-  //       <Text style={style.panelSubtitle}>Choose Your Profile Picture</Text>
-  //     </View>
-  //     <View style={{marginBottom: 40}}>
-  //       <TouchableOpacity
-  //         style={style.panelButton}
-  //         onPress={takePhotoFromCamera}>
-  //         <Text style={style.panelButtonTitle}>Take Photo From Camera</Text>
-  //       </TouchableOpacity>
-  //       <TouchableOpacity
-  //         style={style.panelButton}
-  //         onPress={choosePhotoFromLibrary}>
-  //         <Text style={style.panelButtonTitle}>Take Photo From Library</Text>
-  //       </TouchableOpacity>
-  //       <TouchableOpacity
-  //         style={style.panelButton}
-  //         onPress={() => sheetRef.current.snapTo(1)}>
-  //         <Text style={style.panelButtonTitle}>Cancel</Text>
-  //       </TouchableOpacity>
-  //     </View>
-  //   </View>
-  // );
 
   return (
         <>
@@ -257,27 +190,13 @@ const Profile = ({navigation}) => {
                 </View>
               </View>
               <View style={{backgroundColor: '#ccc', margin: 10, borderRadius: 10}}>
-                <TouchableOpacity onPress={() => dispatch(AuthLogout())}>
-                  <View style={style.logout}>
-                    <Text
-                      style={style.logout1}>
-                      Logout
-                    </Text>
-                  </View>
-                </TouchableOpacity>
+              <TouchableOpacity
+              style={{padding: 15}}
+                onPress={() => onLogout()}>
+                <Text style={style.logout}>Logout</Text>
+              </TouchableOpacity>
               </View>
             </View>
-            {/* <BottomSheet
-              ref={sheetRef}
-              snapPoints={[360, 0]}
-              initialSnap={1}
-              callbackNode={down}
-              enabledGestureInteraction
-              enabledContentGestureInteraction={false}
-              enabledContentTapInteraction
-              renderHeader={renderHeader}
-              renderContent={renderContent}
-            /> */}
           </ScrollView>
         </>
   
@@ -345,7 +264,8 @@ const style = StyleSheet.create({
   imgProfile: {
     width: 55, height: 55, 
     marginTop: 0,
-    marginLeft: 140
+    marginLeft: 140,
+    borderRadius: 5
   },
   header: {
     backgroundColor: '#FFFFFF',
@@ -418,14 +338,11 @@ const style = StyleSheet.create({
     right: 30
   },
   logout: {
-    height: 45,
-    alignItems: 'center',
+    textAlign: 'center', 
+    color: '#444', 
+    fontSize: 18,
+    fontWeight: 'bold'
     
-  },
-  logout1: {
-    alignItems: 'center', 
-    fontWeight: 'bold', 
-    fontSize: 18, 
-    color: '#4D4B57'}
+  }
   
   });

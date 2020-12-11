@@ -172,7 +172,8 @@ const style = StyleSheet.create({
   imgProfile: {
     width: 55, height: 55, 
     marginTop: 60,
-    marginLeft: 25
+    marginLeft: 25,
+    borderRadius: 5
   },
   profile: {
     marginVertical: -50, 
