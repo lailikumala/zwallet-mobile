@@ -20,22 +20,13 @@ import { GetUser, PatchPhoto} from '../../redux/actions/User';
 
 
 const Profile = ({navigation}) => {
-  
-  
-  // const [photo, setPhoto] = React.useState(null)
+  const [photo, setPhoto] = React.useState(null)
   const [logout, setLogout] = React.useState(null)
   const [isSwitchOn, setIsSwitchOn] = React.useState(false);
   const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
-  // const [button, setButton] = React.useState('Save');
-  // const [selectUser, setSelectUser] = React.useState({});
   const dispatch = useDispatch()
-  // const sheetRef = React.useRef(null);
-  // const down = new Animated.Value(1);
-  
   const Auth = useSelector((s)=> s.Auth)
   const { data } = useSelector((s)=> s.User)
-  
-  
   console.log(Auth.data.token, 'll')
 
   React.useEffect(()=> {
