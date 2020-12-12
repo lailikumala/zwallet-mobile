@@ -1,4 +1,4 @@
-# zwallet-react-native
+# zwallet-mobile
  
 ## About project
 
