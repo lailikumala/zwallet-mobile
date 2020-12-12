@@ -10,7 +10,8 @@
   - [MySQL](https://www.mysql.com/)
   - [React Native](https://reactnative.dev/)
   - [ExpressJs](https://expressjs.com/)
-  
+  - [Firebase](https://console.firebase.google.com/u/0/)
+ 
 ## in-app features
 
  ### Splach Screen
