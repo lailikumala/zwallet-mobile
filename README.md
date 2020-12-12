@@ -37,7 +37,7 @@
 ### Download project
 
 ```
-~$ git clone https://github.com/userexynos/Frontend-Team
+~$ git clone https://github.com/lailikumala92/zwallet-mobile.git
 yarn
 ```
 
