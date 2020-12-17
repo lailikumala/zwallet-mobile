@@ -43,4 +43,4 @@ yarn
 
 ### Application link
 
-bit.ly/zwalletMobile
+bit.ly/ZwalletMobile
