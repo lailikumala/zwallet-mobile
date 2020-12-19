@@ -118,16 +118,17 @@ const ChangePin = (props) => {
             onChangeText={(e) => setPin6(e)}
             onSubmitEditing={() => onSubmit()}
           />
-        </View>       
-      </ScrollView>
-      <View style={{padding: 5, backgroundColor: '#e9eef7'}}>
+        </View>   
+        <View style={{padding: 5, marginTop: 360, backgroundColor: '#e9eef7'}}>
         <Button
           onPress={() => onSubmit()}
           backgroundColor="#6379f4"
           mode="contained">
           Change Pin
         </Button>
-      </View>
+      </View>    
+      </ScrollView>
+      
     </>
   );
 };

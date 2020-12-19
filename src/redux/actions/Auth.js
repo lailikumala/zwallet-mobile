@@ -49,7 +49,6 @@ export const AuthLogin = (fields) => {
         }).then((res)=> {
             const data = res.data
             console.log(data, 'dataas')
-            ToastAndroid.show('Login Successful', ToastAndroid.SHORT);
             dispatch(AuthLoginSuccess(data))
         }).catch((err)=> {
             const message = err.message

@@ -141,8 +141,7 @@ const ChangePassword = (props) => {
             </TouchableOpacity>
           </View>
         </View>
-      </ScrollView>
-      <View style={{padding: 5, backgroundColor: '#e9eef7'}}>
+        <View style={{padding: 5, marginTop: 260, backgroundColor: '#e9eef7'}}>
         <Button
           onPress={() => onUpdateSubmit()}
           backgroundColor="#6379f4"
@@ -150,6 +149,8 @@ const ChangePassword = (props) => {
           Change Password
         </Button>
       </View>
+      </ScrollView>
+      
     </>
   );
 };
