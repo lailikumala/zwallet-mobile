@@ -38,7 +38,7 @@
    ### Check Pin
  <img src="https://user-images.githubusercontent.com/66887616/103172019-4aafbe80-4805-11eb-87d4-1893d37d1ad3.jpg" width="150">
  
-   ### STatus Success 
+   ### Status Success 
  <img src="https://user-images.githubusercontent.com/66887616/103172127-21dbf900-4806-11eb-97b0-0f559336cdf3.jpg" width="150">
  
  ### Profile
@@ -64,10 +64,9 @@ yarn
     <li>Make Sure you had clone this repo</li>
     <li>Open terminal in this project and run</li>
    </ul>
-
-    ```
-    npx react-native run-android
-    ```
+ ```
+npx react-native run-android
+```
 
 ### Application link
 
