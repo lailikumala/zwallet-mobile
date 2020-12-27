@@ -10,10 +10,7 @@ import {
 } from 'react-native';
 import { ScrollView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { GetAllUser, SearchNameUser, GetUser } from '../../redux/actions/User';
 import Axios from 'axios';
-
-import { UserById } from '../../redux/actions/GetById';
 
 
 const Transfer = ({navigation}) => {
@@ -37,17 +34,19 @@ const [name, setName] = React.useState(null)
     }
 
     
-  const renderItem = ({item}) => {
+  const renderItem = ({item, index}) => {
     return (
       <View style={style.cardContact}>
         <TouchableOpacity
-        onPress={() => { navigation.navigate('Amount')
+        onPress={() => { navigation.navigate('Amount', {id: item.id}) 
+        console.log('ini', item.id, item.name, item.phone)      
         }}>
       <View>
       {item.photo? (
         <Image 
         source={{uri: `https://db-zwallet.herokuapp.com/images/${item.photo}`}}
         style={style.imgProfile}/>
+        
       ) : (
         <Image 
         source={require('../../assets/images/blank.png')}
@@ -58,8 +57,9 @@ const [name, setName] = React.useState(null)
         <View style={style.detail}>
           <TouchableOpacity>
             <Text style={style.name}>{item.name}</Text>
+           
           </TouchableOpacity>
-          <Text style={style.phone}>+62 {item.phone}</Text>
+          <Text style={style.phone}>{item.phone ? `+62 ${item.phone}` : '-'}</Text>
         </View>
       </View>
         </TouchableOpacity>
@@ -135,6 +135,7 @@ const style = StyleSheet.create({
     borderRadius: 7,
     backgroundColor: '#fff',
     marginTop: 15,
+    elevation: 4
   },
   image: {
     width: 50, 

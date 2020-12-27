@@ -5,21 +5,14 @@ import {
   StyleSheet,
   ScrollView,
   ToastAndroid,
-  TouchableOpacity
+  TouchableOpacity,
+  TextInput
 } from 'react-native';
-import {Button, Text, IconButton, TextInput,} from 'react-native-paper';
+import {Button, Text} from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
-// import { AuthRegister } from '../../redux/actions/Auth';
  import { PatchPin } from '../../redux/actions/ChangePin';
-import Axios from 'axios'
 
 const ChangePin = (props) => {
-  const inputPin2 = React.useRef();
-  const inputPin3 = React.useRef();
-  const inputPin4 = React.useRef();
-  const inputPin5 = React.useRef();
-  const inputPin6 = React.useRef();
-  const [password, setPassword] = React.useState(null);
   const [pin1, setPin1] = React.useState(null);
   const [pin2, setPin2] = React.useState(null);
   const [pin3, setPin3] = React.useState(null);
@@ -70,51 +63,59 @@ const ChangePin = (props) => {
             keyboardType={"number-pad"}
             value={pin1}
             returnKeyType="next"
+            textAlign="center"
+            fontSize={20}
+            fontWeight="bold"
             onChangeText={(e) => setPin1(e)}
-            onSubmitEditing={() => inputPin2.current.focus()}
           />
           
           <TextInput style={style.inputText}
             keyboardType={"number-pad"}
-            ref={inputPin2}
             value={pin2}
             returnKeyType="next"
+            textAlign="center"
+            fontSize={20}
+            fontWeight="bold"
             onChangeText={(e) => setPin2(e)}
-            onSubmitEditing={() => inputPin3.current.focus()}
           />
           
           <TextInput style={style.inputText}
             keyboardType={"number-pad"}
-            ref={inputPin3}
             value={pin3}
             returnKeyType="next"
+            textAlign="center"
+            fontSize={20}
+            fontWeight="bold"
             onChangeText={(e) => setPin3(e)}
-            onSubmitEditing={() => inputPin4.current.focus()}
           />
           
           <TextInput style={style.inputText}
             keyboardType={"number-pad"}
-            ref={inputPin4}
             value={pin4}
             returnKeyType="next"
+            textAlign="center"
+            fontSize={20}
+            fontWeight="bold"
             onChangeText={(e) => setPin4(e)}
-            onSubmitEditing={() => inputPin5.current.focus()}
           />
           
           <TextInput style={style.inputText}
             keyboardType={"number-pad"}
-            ref={inputPin5}
             value={pin5}
             returnKeyType="next"
+            textAlign="center"
+            fontSize={20}
+            fontWeight="bold"
             onChangeText={(e) => setPin5(e)}
-            onSubmitEditing={() => inputPin6.current.focus()}
           />
           
           <TextInput style={style.inputText}
             keyboardType={"number-pad"}
-            ref={inputPin6}
             value={pin6}
             returnKeyType="send"
+            textAlign="center"
+            fontSize={20}
+            fontWeight="bold"
             onChangeText={(e) => setPin6(e)}
             onSubmitEditing={() => onSubmit()}
           />

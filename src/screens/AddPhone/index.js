@@ -32,7 +32,7 @@ const AddPhone = (props) => {
       <ScrollView style={{backgroundColor: '#e9eef7'}} keyboardShouldPersistTaps='always'>
         <View>
         <TouchableOpacity
-          onPress={()=> props.navigation.navigate('PersonalInfo')}>
+          onPress={()=> props.navigation.navigate('Profile')}>
           <Image 
             source={require('../../assets/img/arrow-left.png')} 
             style={style.arrowLeft}/>

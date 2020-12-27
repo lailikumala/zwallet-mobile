@@ -123,7 +123,8 @@ const style = StyleSheet.create({
     backgroundColor: '#fff',
     marginTop: 15,
     marginLeft: 10,
-    marginRight: 10
+    marginRight: 10,
+    elevation: 5,
   },
   image: {
     width: 50, 
@@ -157,6 +158,7 @@ const style = StyleSheet.create({
     marginTop: 15,
     marginLeft: 10,
     marginRight: 10,
+    elevation: 5,
     
   },
   number: {

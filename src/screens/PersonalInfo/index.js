@@ -67,7 +67,7 @@ const PersonalInfo = (props) => {
             <View style={style.card}>
               <View style={style.desc}>
                 <Text style={style.subDesc}>Phone Number</Text>
-                <Text style={style.name}>+62 {data.phone}</Text>
+                <Text style={style.name}>{data.phone ? `+62 ${data.phone}` : '-'}</Text>
                 <TouchableOpacity
                   onPress={()=> props.navigation.navigate('ManagePhone')}
                   style={style.manage}>
@@ -108,7 +108,8 @@ const style = StyleSheet.create({
     width: '100%',
     borderRadius: 15,
     backgroundColor: '#fff',
-    marginTop: 20
+    marginTop: 20,
+    elevation: 4
   },
   desc: {
     marginTop: 20,
@@ -124,7 +125,7 @@ const style = StyleSheet.create({
   subManage: {
     color: '#6379f4',
     marginRight: 30,
-    marginTop: -5
+    marginTop: -10
   }
   
   });

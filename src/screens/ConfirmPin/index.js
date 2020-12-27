@@ -10,17 +10,9 @@ import {
 } from 'react-native';
 import {Button, Text } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
-// import { AuthRegister } from '../../redux/actions/Auth';
- import { PatchPin } from '../../redux/actions/ChangePin';
-import Axios from 'axios'
+ import { Transfer } from '../../redux/actions/Transfer';
 
-
-const ConfirmPin = (props) => {
-  const inputPin2 = React.useRef();
-  const inputPin3 = React.useRef();
-  const inputPin4 = React.useRef();
-  const inputPin5 = React.useRef();
-  const inputPin6 = React.useRef();
+const ConfirmPin = ({navigation, route}) => {
 
   const [pin1, setPin1] = React.useState(null);
   const [pin2, setPin2] = React.useState(null);
@@ -33,30 +25,49 @@ const ConfirmPin = (props) => {
 
   const dispatch = useDispatch();
   const Auth = useSelector((s) => s.Auth);
+  const {data} = useSelector((s) => s.Transfer);
+  const {name} = data;
+  const {data: dataUser} = useSelector((s) => s.User);
+  const pinUser = dataUser.pin;
+  console.log(pinUser, pin)
+
+  const id = route.params.id;
+  const notes = route.params.notes;
+  const amount = route.params.amount;
+  const reciever = route.params.reciever
+  const id_sender = Auth.data.token.id
+  
 
   const onSubmit = () => {
-
-    dispatch(PatchPin({
-      id: Auth.data.token.id,
-      token: Auth.data.token.token,
-      pin: pin,
-    }),
-      setPin1(''),
-      setPin2(''),
-      setPin3(''),
-      setPin4(''),
-      setPin5(''),
-      setPin6(''),
-      
-  )
-}
+    if(pin == pinUser) {
+      dispatch(Transfer({
+        token: Auth.data.token.token,
+        id_sender: id_sender,
+        id_reciever: id,
+        reciever: reciever,
+        amount: amount,
+        notes: notes
+      }));
+      navigation.navigate('Success', {
+        id: id,
+        amount: amount, 
+        notes: notes, 
+        reciever: reciever,
+      });
+    } else {
+      ToastAndroid.show(
+        `pin is worng`,
+        ToastAndroid.SHORT,
+    );
+    }
+};
 
   return (
     <>
       <ScrollView style={{backgroundColor: '#e9eef7'}} keyboardShouldPersistTaps='always'>
         <View>
           <TouchableOpacity
-            onPress={()=> props.navigation.navigate('Confirm')}>
+            onPress={()=> navigation.navigate('Confirm')}>
             <Image 
               source={require('../../assets/img/arrow-left.png')} 
               style={style.arrowLeft}/>
@@ -72,51 +83,59 @@ const ConfirmPin = (props) => {
             keyboardType={"number-pad"}
             value={pin1}
             returnKeyType="next"
+            textAlign="center"
+            fontSize={20}
+            fontWeight="bold"
             onChangeText={(e) => setPin1(e)}
-            onSubmitEditing={() => inputPin2.current.focus()}
           />
           
           <TextInput style={style.inputText}
             keyboardType={"number-pad"}
-            ref={inputPin2}
             value={pin2}
             returnKeyType="next"
+            textAlign="center"
+            fontSize={20}
+            fontWeight="bold"
             onChangeText={(e) => setPin2(e)}
-            onSubmitEditing={() => inputPin3.current.focus()}
           />
           
           <TextInput style={style.inputText}
             keyboardType={"number-pad"}
-            ref={inputPin3}
             value={pin3}
             returnKeyType="next"
+            textAlign="center"
+            fontSize={20}
+            fontWeight="bold"
             onChangeText={(e) => setPin3(e)}
-            onSubmitEditing={() => inputPin4.current.focus()}
           />
           
           <TextInput style={style.inputText}
             keyboardType={"number-pad"}
-            ref={inputPin4}
             value={pin4}
             returnKeyType="next"
+            textAlign="center"
+            fontSize={20}
+            fontWeight="bold"
             onChangeText={(e) => setPin4(e)}
-            onSubmitEditing={() => inputPin5.current.focus()}
           />
           
           <TextInput style={style.inputText}
             keyboardType={"number-pad"}
-            ref={inputPin5}
             value={pin5}
             returnKeyType="next"
+            textAlign="center"
+            fontSize={20}
+            fontWeight="bold"
             onChangeText={(e) => setPin5(e)}
-            onSubmitEditing={() => inputPin6.current.focus()}
           />
           
           <TextInput style={style.inputText}
             keyboardType={"number-pad"}
-            ref={inputPin6}
             value={pin6}
             returnKeyType="send"
+            textAlign="center"
+            fontSize={20}
+            fontWeight="bold"
             onChangeText={(e) => setPin6(e)}
             onSubmitEditing={() => onSubmit()}
           />
@@ -124,7 +143,7 @@ const ConfirmPin = (props) => {
       </ScrollView>
       <View style={{padding: 5, backgroundColor: '#e9eef7'}}>
         <Button
-          onPress={()=> props.navigation.navigate('Success')}
+          onPress={() => onSubmit()}
           backgroundColor="#6379f4"
           mode="contained">
           Transfer now
@@ -165,7 +184,6 @@ inputText: {
   height: 60,
   backgroundColor: '#fff',
   borderRadius: 10,
-  marginHorizontal: 3,
-  borderWidth: 2
+  marginHorizontal: 3
 }
 });

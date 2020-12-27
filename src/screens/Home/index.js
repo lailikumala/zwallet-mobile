@@ -5,30 +5,31 @@ import {
   StyleSheet,
   Image,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
+  FlatList
 } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
-import {
-  IconButton,
-  Button,
-  TextInput
-} from 'react-native-paper';
+import { Button } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetUser } from '../../redux/actions/User';
-import {io} from 'socket.io-client'
+import { History } from '../../redux/actions/History';
 
-
-const Home = (props) => {
+const Home = ({navigation}) => {
   const dispatch = useDispatch()
-  console.log(props)
-  const { data } = useSelector((s)=> s.User)
   const Auth = useSelector((s)=> s.Auth)
+  const { data } = useSelector((s)=> s.User)
+  const {name, photo, phone, balance} = data;
+  const { data: dataHistory } = useSelector((s)=> s.History)
+  console.log(Auth.data.token, 'll')
   // const [balance, setBalance] = React.useState('');
   // const [itemId, setItemId] = React.useState(18);
   // const socket = io('http://192.168.43.239:8000', {query: {itemId}});
-  console.log(Auth.data.token, 'll')
+
   React.useEffect(()=> {
     dispatch(GetUser({
+      id: Auth.data.token.id,
+      token: Auth.data.token.token
+    }))
+    dispatch(History({
       id: Auth.data.token.id,
       token: Auth.data.token.token
     }))
@@ -38,21 +39,46 @@ const Home = (props) => {
     //   setBalance(data);
     // });
   }, []);
-  
-  // React.useEffect(() => {
-  //   return () => {
-  //     socket.off('get-data');
-  //   };
-  // }, []);
+
+    // React.useEffect(() => {
+    //   return () => {
+    //     socket.off('get-data');
+    //   };
+    // }, []);
+
+  const renderItem = ({item}) => {
+    return (
+      <View style={style.cardContact}>
+      <View>
+        <Image 
+        source={require('../../assets/images/blank.png')} 
+        style={style.image}/>
+      </View>
+      <View>
+        <View style={style.notes}>
+          <Text>{item.reciever}</Text>
+          <Text>Transfer</Text>
+        </View>
+        <View style={style.price1}>
+          <Text style={style.subPrice}>
+            -Rp.{item.amount}
+          </Text>
+        </View>                
+      </View>
+    </View>
+    );
+  };
+
 
   return (
         <>
+        
         <ScrollView style={{backgroundColor: '#e9eef7'}}>
           <View style={style.body}>
-            <TouchableOpacity onPress={()=> props.navigation.navigate('Profile')}>
-              {data.photo? (
+            <TouchableOpacity onPress={()=> navigation.navigate('Profile')}>
+              {photo? (
                 <Image 
-                source={{uri: `https://db-zwallet.herokuapp.com/images/${data.photo}`}}
+                source={{uri: `https://db-zwallet.herokuapp.com/images/${photo}`}}
                 style={style.imgProfile}/>
               ) : (
                 <Image 
@@ -64,43 +90,50 @@ const Home = (props) => {
               <Text
                 style={style.hello}>
                 Hello,
-              </Text>
+              </Text>                
               <View>
                 <TouchableOpacity
-                onPress={()=> props.navigation.navigate('Profile')}>
+                  onPress={()=> navigation.navigate('Profile')}>
                   <Text
                     style={style.profileName}>
-                    {data.name}
+                    {name}
                   </Text>
                 </TouchableOpacity>
               </View>
             </View>
             <View style={style.bell}>
               <TouchableOpacity
-              onPress={()=> props.navigation.navigate('')}>
+              onPress={()=> navigation.navigate('')}>
                 <Image 
                   source={require('../../assets/img/bell.png')} 
                   style={style.subBell}/>
               </TouchableOpacity>
             </View>
-              <View style={style.card}>
+            <View style={style.card}>
                 <View style={style.detail}>
                   <Text style={style.subDetail}>Balance</Text>
-                  <Text style={style.price}>Rp.{data.balance}</Text>
-                  <Text style={style.subDetail}>+62 {data.phone}</Text>
+                  <Text style={style.price}>Rp.{balance}</Text>
+                  <Text style={style.subDetail}>
+                    {
+                    phone ? `+62 ${phone}` : 
+                    <TouchableOpacity
+                      onPress={()=> navigation.navigate('AddPhone')}>
+                      <Text style={style.addPhone}>Add Phone</Text>
+                    </TouchableOpacity>
+                    }</Text>
                 </View>
               </View>
               <View style={style.button}>
                 <Button 
-                  onPress={()=> props.navigation.navigate('Transfer')}
+                  onPress={()=> navigation.navigate('Transfer')}
                   style={style.transfer}>
                     <Image
                     style={style.arrowUp} 
-                    source={require('../../assets/img/arrow-up(1).png')} />
+                    source={require('../../assets/img/arrow-up.png')} />
                   <Text style={style.subTransfer}>Transfer</Text>
                 </Button>
                 <Button 
-                onPress={()=> props.navigation.navigate('TopUp')}
+                onPress={()=> navigation.navigate('TopUp')}
                 style={style.topup}>
                 <Image
                     style={style.arrowUp} 
@@ -119,42 +152,13 @@ const Home = (props) => {
                     </Text>
                 </TouchableOpacity>
               </View>
-              <View style={style.cardContact}>
-                <View>
-                  <Image 
-                  source={require('../../assets/images/michael.png')} 
-                  style={style.image}/>
-                </View>
-                <View>
-                  <View style={style.notes}>
-                    <Text>Michael lee</Text>
-                    <Text>Transfer</Text>
-                  </View>
-                  <View style={style.price1}>
-                    <Text style={style.subPrice}>
-                      -50.000
-                    </Text>
-                  </View>                
-                </View>
-              </View>
-              <View style={style.cardContact}>
-                <View>
-                  <Image 
-                  source={require('../../assets/images/jessica.png')} 
-                  style={style.image}/>
-                </View>
-                <View>
-                  <View style={style.notes}>
-                    <Text>jessica</Text>
-                    <Text>Transfer</Text>
-                  </View>
-                  <View style={style.price1}>
-                    <Text style={style.subPrice}>
-                      -50.000
-                    </Text>
-                  </View>                
-                </View>
-              </View>              
+              <FlatList
+            showsVerticalScrollIndicator={false}
+            data={dataHistory}
+            // keyExtractor={(item) => item.id.toString()}
+            renderItem={renderItem}
+          /> 
+                           
           </View>
         </ScrollView>
         </>
@@ -173,7 +177,8 @@ const style = StyleSheet.create({
     width: 55, height: 55, 
     marginTop: 60,
     marginLeft: 25,
-    borderRadius: 5
+    borderRadius: 5,
+    elevation: 6
   },
   profile: {
     marginVertical: -50, 
@@ -205,6 +210,7 @@ const style = StyleSheet.create({
     borderRadius: 15,
     backgroundColor: '#6379f4',
     marginTop: 40,
+    elevation: 5,
   },
   detail: {
     marginTop: 13,
@@ -222,14 +228,16 @@ const style = StyleSheet.create({
     marginBottom: 10
   },
   button: {
-    display: 'flex'
+    display: 'flex',
+    elevation: 4,
   },
   transfer: {
     alignItems: 'flex-start',
     width: 140,
     backgroundColor: '#ccc',
     marginTop: 20,
-    marginLeft: 30
+    marginLeft: 30,
+    elevation: 4,
   },
   subTransfer: {
     color: '#000',
@@ -241,7 +249,8 @@ const style = StyleSheet.create({
     position: 'relative',
     marginTop: -37,
     marginLeft: 190,
-    backgroundColor: '#ccc'
+    backgroundColor: '#ccc',
+    elevation: 4,
   },
   arrowUp: {
     width: 17,
@@ -268,7 +277,8 @@ const style = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: '#fff',
     marginTop: 15,
-    height: 80
+    height: 80,
+    elevation: 4,
   },
   image: {
     width: 45, 
@@ -292,6 +302,10 @@ const style = StyleSheet.create({
   subPrice: {
     color: '#FF0000',
     fontWeight: 'bold' 
-    
   },
-});
+  addPhone: {
+    color: '#fff',
+    fontWeight: 'bold',
+    marginLeft: 10,
+  }
+  });

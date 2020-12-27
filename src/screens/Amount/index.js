@@ -2,8 +2,42 @@ import React from 'react';
 import {View, Text, Image, TextInput, TouchableOpacity, StyleSheet} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {Button} from 'react-native-paper';
+import { UserById } from '../../redux/actions/Transfer';
+import { useDispatch, useSelector } from 'react-redux';
+const Amount = ({ route, navigation}) => {
 
-const Amount = ({navigation}) => {
+  const id = route.params.id;
+  const [amount, setAmount] = React.useState('');
+  const [notes, setNotes] = React.useState('');
+
+  const dispatch = useDispatch();
+  const Auth = useSelector((s) => s.Auth);
+  const {data} = useSelector((s) => s.Transfer);
+  const {name, photo, phone} = data;
+  const {data: dataUser} = useSelector((s) => s.User);
+  
+ 
+  React.useEffect(() => {
+    dispatch(
+      UserById({
+        id: route.params.id,
+        token: Auth.data.token.token,
+      }),
+    );
+  }, []);
+
+  const onSubmit = () => {
+    if (amount.length == 0 && notes.length == 0) {
+      ToastAndroid.show('you must fill in the data correctly', ToastAndroid.SHORT);
+    } else {
+      navigation.navigate('Confirm', {
+        id: id,
+        amount: amount,
+        notes: notes,
+      });
+    }
+  };
+
   return (
     <ScrollView style={style.scrollview}>
       <View style={{flexDirection: 'row'}}>
@@ -22,38 +56,48 @@ const Amount = ({navigation}) => {
       </View>
       <View>
       <View style={{margin: 20}}>
-        <View style={style.cardContact}>
-          <View>
+      <View style={style.cardContact}>
+        <View>
+          {photo? (
             <Image 
-            source={require('../../assets/images/michael.png')} 
+            source={{uri: `https://db-zwallet.herokuapp.com/images/${photo}`}} 
             style={style.image}/>
-          </View>
-          <View>
+          ) : (
+            <Image 
+            source={require('../../assets/images/blank.png')}
+            style={style.imgProfile}/>
+          )}
+        </View>
+        <View>
           <View style={style.detail}>
             <TouchableOpacity>
-              <Text style={style.name}>samuel</Text>
+              <Text style={style.name}>{name}</Text>
             </TouchableOpacity>
-            <Text>+62 0987654</Text>
+            <Text style={{color: '#aaa'}}>{phone ? `+62 ${phone}` : '-'}</Text>
           </View>               
-          </View>
-        </View> 
+        </View>
+      </View> 
       </View> 
         <View>
           <Text
             style={style.available}>
-            Rp. 120.000 Available
+            Rp. {dataUser.balance} Available
           </Text>
           <TextInput
             style={style.inputPrice}
             placeholder="0.00"
+            onChangeText={(e) => setAmount(e)}
+            keyboardType="number-pad"
           />
           <TextInput
             style={style.inputNotes}
             placeholder="Add some notes"
+            onChangeText={(e) => setNotes(e)}
           />
-          <View style={{marginTop: 50}}>
+          <View style={{marginTop: 50, marginLeft: 20, marginRight: 20}}>
             <Button
-              onPress={()=> navigation.navigate('Confirm')}
+              onPress={()=> {navigation.navigate('Confirm')
+              onSubmit()}}
               backgroundColor="#6379f4"
               mode="contained">
               continue

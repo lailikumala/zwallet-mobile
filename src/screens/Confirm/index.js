@@ -2,8 +2,34 @@ import React from 'react';
 import {View, Text, Image, TextInput, TouchableOpacity, StyleSheet} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {Button} from 'react-native-paper';
+import { UserById } from '../../redux/actions/Transfer';
+import { useDispatch, useSelector } from 'react-redux';
 
-const Confirm = ({navigation}) => {
+const Confirm = ({navigation, route}) => {
+
+  const dispatch = useDispatch();
+  const Auth = useSelector((s) => s.Auth);
+  const {data} = useSelector((s) => s.Transfer);
+  const {name, photo, phone} = data;
+  const {data: dataUser} = useSelector((s) => s.User);
+  const balance = dataUser.balance;
+  const date = new Date().toLocaleString();
+  
+  const id = route.params.id;
+  const notes = route.params.notes;
+  const amount = route.params.amount;
+  const balanceLeft = balance - amount;
+
+  React.useEffect(() => {
+    dispatch(
+      UserById({
+        id: route.params.id,
+        token: Auth.data.token.token,
+      }),
+    );
+  }, []);
+
+
   return (
     <ScrollView style={style.scrollview}>
       <View style={{flexDirection: 'row'}}>
@@ -24,19 +50,27 @@ const Confirm = ({navigation}) => {
         <Text style={style.title}>Transfer To</Text>
       </View>
       <View style={{margin: 20}}>
-        <View style={style.cardContact}>
-          <View>
+      <View style={style.cardContact}>
+        <View>
+          {photo? (
             <Image 
-            source={require('../../assets/images/michael.png')} 
+            source={{uri: `https://db-zwallet.herokuapp.com/images/${photo}`}} 
             style={style.image}/>
-          </View>
-          <View>
+          ) : (
+            <Image 
+            source={require('../../assets/images/blank.png')}
+            style={style.imgProfile}/>
+          )}
+        </View>
+        <View>
           <View style={style.detail}>
-            <Text style={style.name}>samuel</Text>
-            <Text style={style.phone}>+62 0987654</Text>
+            <TouchableOpacity>
+              <Text style={style.name}>{name}</Text>
+            </TouchableOpacity>
+            <Text style={{color: '#aaa'}}>{phone ? `+62 ${phone}` : '-'}</Text>
           </View>               
-          </View>
-        </View> 
+        </View>
+      </View> 
       </View> 
       <View>
         <Text style={style.title}>Details</Text>
@@ -46,7 +80,7 @@ const Confirm = ({navigation}) => {
           <View>
           <View style={style.desc}>
               <Text style={style.descTitle}>Amount</Text>
-            <Text style={style.descNotes}>Rp. 1000</Text>
+            <Text style={style.descNotes}>{amount}</Text>
           </View>               
           </View>
         </View> 
@@ -54,15 +88,15 @@ const Confirm = ({navigation}) => {
           <View>
           <View style={style.desc}>
               <Text style={style.descTitle}>Balance Left</Text>
-            <Text style={style.descNotes}>Rp. 190000</Text>
+            <Text style={style.descNotes}>{balanceLeft}</Text>
           </View>               
           </View>
         </View> 
         <View style={style.cardContact}>
           <View>
             <View style={style.desc}>
-                <Text style={style.descTitle}>Date, Time </Text>
-              <Text style={style.descNotes}>May 11, 2020 - 12.20</Text>
+                <Text style={style.descTitle}>Date & Time </Text>
+              <Text style={style.descNotes}>{date}</Text>
             </View>               
           </View>
         </View>
@@ -70,18 +104,25 @@ const Confirm = ({navigation}) => {
           <View>
             <View style={style.desc}>
                 <Text style={style.descTitle}>Notes </Text>
-              <Text style={style.descNotes}>For buying some socks</Text>
+              <Text style={style.descNotes}>{notes}</Text>
             </View>               
           </View>
         </View>
         <View style={{marginTop: 50}}>
             <Button
-              onPress={()=> navigation.navigate('ConfirmPin')}
+              onPress={() =>
+                navigation.navigate('ConfirmPin', {
+                  id: id,
+                  amount: amount,
+                  notes: notes,
+                  reciever: name,
+                })
+              }
               backgroundColor="#6379f4"
               mode="contained">
               continue
             </Button>
-          </View> 
+        </View> 
       </View> 
     </ScrollView>
   );

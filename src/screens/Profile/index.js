@@ -120,9 +120,9 @@ const Profile = ({navigation}) => {
               <Text style={style.textEdit}>Edit</Text>
             </View>
             <Text style={style.name}>{data.name}</Text>
-            <Text style={style.phone}>+62 {data.phone}</Text>
+            <Text style={style.phone}>{data.phone ? `+62 ${data.phone}` : '-'}</Text>
             <View>
-              <View style={{backgroundColor: '#ccc', margin: 10, borderRadius: 15}}>
+              <View style={style.item}>
                 <TouchableOpacity 
                     onPress={() => navigation.navigate('PersonalInfo')}
                   style={style.title}>
@@ -136,7 +136,7 @@ const Profile = ({navigation}) => {
                   </View>
                 </TouchableOpacity>
               </View>
-              <View style={{backgroundColor: '#ccc', margin: 10, borderRadius: 15}}>
+              <View style={style.item}>
                 <TouchableOpacity 
                     onPress={() => navigation.navigate('ChangePassword')}
                   style={style.title}>
@@ -150,7 +150,7 @@ const Profile = ({navigation}) => {
                   </View>
                 </TouchableOpacity>
               </View>
-              <View style={{backgroundColor: '#ccc', margin: 10, borderRadius: 15}}>
+              <View style={style.item}>
                 <TouchableOpacity
                   onPress={() => navigation.navigate('ChangePin')} 
                 style={style.title}>
@@ -164,7 +164,7 @@ const Profile = ({navigation}) => {
                 </View>
                 </TouchableOpacity>
               </View>
-              <View style={{backgroundColor: '#ccc', margin: 10, borderRadius: 15}}>
+              <View style={style.item}>
                 <View style={style.title}>
                 <TouchableOpacity
                 onPress={() => navigation.navigate('Notification')}>
@@ -180,7 +180,7 @@ const Profile = ({navigation}) => {
                 />
                 </View>
               </View>
-              <View style={{backgroundColor: '#ccc', margin: 10, borderRadius: 10}}>
+              <View style={{backgroundColor: '#fff', margin: 10, borderRadius: 10, elevation: 4}}>
               <TouchableOpacity
               style={{padding: 15}}
                 onPress={() => onLogout()}>
@@ -256,7 +256,8 @@ const style = StyleSheet.create({
     width: 55, height: 55, 
     marginTop: 0,
     marginLeft: 140,
-    borderRadius: 5
+    borderRadius: 5,
+    elevation: 6
   },
   header: {
     backgroundColor: '#FFFFFF',
@@ -330,10 +331,15 @@ const style = StyleSheet.create({
   },
   logout: {
     textAlign: 'center', 
-    color: '#444', 
+    color: '#FF0000', 
     fontSize: 18,
     fontWeight: 'bold'
-    
+  },
+  item: {
+    backgroundColor: '#fff', 
+    margin: 10, 
+    borderRadius: 15,
+    elevation: 4
   }
   
   });
