@@ -50,7 +50,7 @@
   ### Change Password
  <img src="https://user-images.githubusercontent.com/66887616/103172032-64510600-4805-11eb-80fc-7a84f1dba9c7.jpg" width="150">
 
-## How to install and Run aplication 
+## How to install and Run application 
 
 ### Download project and install dependencies
 
@@ -64,8 +64,10 @@ yarn
     <li>Make Sure you had clone this repo</li>
     <li>Open terminal in this project and run</li>
    </ul>
+   
  ```
 npx react-native run-android
+
 ```
 
 ### Application link
