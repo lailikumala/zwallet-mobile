@@ -70,6 +70,20 @@ npx react-native run-android
 
 ```
 
+
+ ## You can use API Zwallet or from local server
+ ### API Zwallet
+ 
+  https://db-zwallet.herokuapp.com/
+  
+ ### If use local server you must download this repo and install dependencies
+ 
+ ```
+~$ git clone https://github.com/lailikumala92/db-zwallet.git
+npm install
+```
+
+
 ### Application link
 
 bit.ly/zwallet_mobile
