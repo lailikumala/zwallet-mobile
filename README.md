@@ -44,6 +44,9 @@
  ### Profile
  <img src="https://user-images.githubusercontent.com/66887616/103172102-dcb7c700-4805-11eb-9b80-da84fe00c252.jpg" width="150">
  
+  ### Change Photo
+ <img src=" https://user-images.githubusercontent.com/66887616/103400998-03bf1300-4afc-11eb-8b95-9dc5feb8869a.jpg" width="150">
+ 
   ### Personal Information
  <img src="https://user-images.githubusercontent.com/66887616/103172098-d590b900-4805-11eb-81a3-5e7936843eb2.jpg" width="150">
  
